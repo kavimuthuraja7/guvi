@@ -24,7 +24,7 @@ while True:
     if cmd == '4':  # Exit operation
         break
 
-    if cmd == '1':  # Register Operation
+    elif cmd == '1':  # Register Operation
         newUser = User()  # New user creation
         printNewUserNameInfo()
 

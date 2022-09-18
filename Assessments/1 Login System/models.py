@@ -7,7 +7,7 @@ class User:
         self.password = password
 
     def __del__(self):
-        print("User creation cancelled..!")
+        pass
 
     def validUsername(self) -> bool:
         pattern = r"^[a-zA-Z][a-zA-Z0-9-_]+@[a-zA-Z0-9]+\.[a-z]{1,3}$"  # email id checking regex pattern
