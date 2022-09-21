@@ -5,6 +5,7 @@ class User:
     def __init__(self, username=None, password=None):
         self.username = username
         self.password = password
+        self.userData = getUserData()
 
     def __del__(self):
         pass
@@ -56,5 +57,53 @@ class User:
             return False
 
     def create(self) -> bool:
+
+        if self.username not in self.userData["userid"]:
+            self.userData["userid"].append(self.username)
+            self.userData["password"].append(self.password)
+        else:
+            print('User already exists!!!')
+            return False
+
+        setUserData(self.userData)
+
         print("User created successfully!!")
         return True
+
+    def checkUsername(self):
+        userData = getUserData()
+        if self.username in userData["userid"]:
+            return True
+        else:
+            return False
+
+    def login(self):
+
+        for i in range(len(self.userData["userid"])):
+            username = self.userData["userid"][i]
+            password = self.userData["password"][i]
+            if self.username == username and self.password == password:
+                return True, "User Successfully Logged In!"
+
+        return False
+
+    def forgotPassword(self):
+        if self.checkUsername():
+            for i in range(len(self.userData["userid"])):
+                username = self.userData["userid"][i]
+                password = self.userData["password"][i]
+                if self.username == username:
+                    print("Your password is '{}'".format(password))
+                    if (input("Do you want to change your password? (y/n) : ")).lower() == "y":
+                        self.password = input("Enter new password:")
+                        if self.validPassword():
+                            self.userData["password"][i] = self.password
+                            if setUserData(self.userData):
+                                print("Password changed successfully!")
+                            else:
+                                print("Password change failed!")
+                        else:
+                            print("Invalid password format!")
+
+        else:
+            print("User doesn't exists!")

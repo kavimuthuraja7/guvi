@@ -40,3 +40,23 @@ def isPatternMatch(pattern, text) -> bool:
     if re.match(pattern, text):
         return True
     return False
+
+
+def getUserData():
+    UserDataPath = "UserData/UserData.json"
+    with open(UserDataPath) as f:
+        existingUserData = json.load(f)
+    return existingUserData
+
+
+def setUserData(newUserData):
+    UserDataPath = "UserData/UserData.json"
+    temp = getUserData()
+    try:
+        with open(UserDataPath, 'w+') as f:
+            json.dump(newUserData, f)
+        return True
+    except:
+        with open(UserDataPath, 'w+') as f:
+            json.dump(temp, f)
+        return False

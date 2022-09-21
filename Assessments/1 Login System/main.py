@@ -1,3 +1,4 @@
+import json
 from models import *
 from functions import *
 
@@ -7,6 +8,7 @@ ExitInfo = "Bye, See you soon..!"  # Greetings text for exiting application
 InvalidUsernameInfo = "Invalid Username format for registration, user registration aborted!"
 InvalidPasswordInfo = "Invalid Password format for registration, user registration aborted!"
 ConfirmPasswordErrorInfo = "Password and confirm password mismatched!, user registration aborted!"
+
 
 # Main Loop
 while True:
@@ -49,6 +51,28 @@ while True:
             continue
 
         newUser.create()
+
+    #  Login Operation
+    elif cmd == '2':
+        loginUserName = input("Username: ")
+        loginUser = User(username=loginUserName)
+        if not loginUser.checkUsername():
+            print("Invalid User ID")
+            continue
+
+        loginUser.password = input("Password: ")
+        if loginUser.login():
+            print("User successfully logged in!")
+            del loginUser
+        else:
+            print("Invalid password")
+            del loginUser
+
+    #  Forgot Password Operation
+    elif cmd == '3':
+
+        forgotUser = User(username=input("Username: "))
+        forgotUser.forgotPassword()
 
 print(ExitInfo)
 exit()
