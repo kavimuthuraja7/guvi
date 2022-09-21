@@ -26,7 +26,8 @@ while True:
     if cmd == '4':  # Exit operation
         break
 
-    elif cmd == '1':  # Register Operation
+    # Register Operation
+    elif cmd == '1':
         newUser = User()  # New user creation
         printNewUserNameInfo()
 
@@ -54,12 +55,14 @@ while True:
 
     #  Login Operation
     elif cmd == '2':
-        loginUserName = input("Username: ")
+        loginUserName = input("Username: ")  # Getting username from user
+
+        # checking the username availability
         loginUser = User(username=loginUserName)
         if not loginUser.checkUsername():
             print("Invalid User ID")
             continue
-
+        # checking password match
         loginUser.password = input("Password: ")
         if loginUser.login():
             print("User successfully logged in!")

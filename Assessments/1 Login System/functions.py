@@ -1,6 +1,9 @@
 import json
 import re
 
+# variables
+UserDataPath = "UserData/UserData.json"
+
 
 # Command Information Print
 def printInfo():
@@ -42,16 +45,17 @@ def isPatternMatch(pattern, text) -> bool:
     return False
 
 
+# getting user data from data file
 def getUserData():
-    UserDataPath = "UserData/UserData.json"
     with open(UserDataPath) as f:
         existingUserData = json.load(f)
     return existingUserData
 
 
+# writing new user data to data file
 def setUserData(newUserData):
-    UserDataPath = "UserData/UserData.json"
     temp = getUserData()
+    # writing nwe user data with error handling to avoid data loss
     try:
         with open(UserDataPath, 'w+') as f:
             json.dump(newUserData, f)
