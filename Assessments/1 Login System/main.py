@@ -28,48 +28,57 @@ while True:
 
     # Register Operation
     elif cmd == '1':
-        newUser = User()  # New user creation
         printNewUserNameInfo()
+        print("Type quit to exit from registration mode....")
+        while True:
+            newUser = User()  # New user creation
+            # Getting username from user
+            newUser.username = input("Please enter the username: ")
 
-        # Getting username from user
-        newUser.username = input("Please enter the username: ")
-        # validating username
-        if not newUser.validUsername():
-            print(InvalidUsernameInfo)
-            del newUser  # deleting created instance
-            continue
-        #  Getting password from user
-        newUser.password = input("Please enter the password: ")
-        if not newUser.validPassword():
-            print(InvalidPasswordInfo)
-            del newUser  # deleting created instance
-            continue
-        #  Getting confirm password from user
-        confirmPassword = input("Confirm Password: ")
-        if newUser.password != confirmPassword:
-            print(ConfirmPasswordErrorInfo)
-            del newUser
-            continue
+            if newUser.username.lower() == "quit":
+                break
+            # validating username
+            if not newUser.validUsername():
+                print(InvalidUsernameInfo)
+                del newUser  # deleting created instance
+                continue
+            #  Getting password from user
+            newUser.password = input("Please enter the password: ")
+            if not newUser.validPassword():
+                print(InvalidPasswordInfo)
+                del newUser  # deleting created instance
+                continue
+            #  Getting confirm password from user
+            confirmPassword = input("Confirm Password: ")
+            if newUser.password != confirmPassword:
+                print(ConfirmPasswordErrorInfo)
+                del newUser
+                continue
 
-        newUser.create()
+            newUser.create()
+            break
 
     #  Login Operation
     elif cmd == '2':
-        loginUserName = input("Username: ")  # Getting username from user
-
-        # checking the username availability
-        loginUser = User(username=loginUserName)
-        if not loginUser.checkUsername():
-            print("Invalid User ID")
-            continue
-        # checking password match
-        loginUser.password = input("Password: ")
-        if loginUser.login():
-            print("User successfully logged in!")
-            del loginUser
-        else:
-            print("Invalid password")
-            del loginUser
+        print("Type quit to exit from login mode....")
+        while True:
+            loginUserName = input("Username: ")  # Getting username from user
+            if loginUserName.lower() == "quit":
+                break
+            # checking the username availability
+            loginUser = User(username=loginUserName)
+            if not loginUser.checkUsername():
+                print("Invalid User ID")
+                continue
+            # checking password match
+            loginUser.password = input("Password: ")
+            if loginUser.login():
+                print("User successfully logged in!")
+                del loginUser
+                break
+            else:
+                print("Invalid password")
+                del loginUser
 
     #  Forgot Password Operation
     elif cmd == '3':
